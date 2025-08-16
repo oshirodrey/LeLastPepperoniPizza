@@ -17,13 +17,14 @@ APizza::APizza()
 	PepperoniMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PepperoniMesh"));
 	PepperoniMesh->SetupAttachment(BaseMesh);
 
-	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("ProjectileSpawnPoint"));
-	ProjectileSpawnPoint->SetupAttachment(BaseMesh);
+
 }
 // Called to bind functionality to input
 void APizza::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	PlayerInputComponent->BindAction("Shoot", IE_Pressed, this, &APizza::Shoot);
 
 	
 
@@ -55,8 +56,9 @@ void APizza::RotatePizza(FVector HitLocation)
 		BaseMesh->GetComponentRotation(),
 		Rotation,
 		GetWorld()->GetDeltaSeconds(),
-		3.0f));
+		5.0f));
 }//RInterpTo ensures smooth rotation
+
 
 void APizza::BeginPlay()
 {

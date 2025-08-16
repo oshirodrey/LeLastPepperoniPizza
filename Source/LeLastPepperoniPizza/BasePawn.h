@@ -22,6 +22,16 @@ protected:
 	class UStaticMeshComponent* BaseMesh;
 	UPROPERTY(EditAnywhere)
 	class UCapsuleComponent* Capsule;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Component")
+	class USceneComponent* ProjectileSpawnPoint;
+	
+	void Shoot();
+private:
+	UPROPERTY(EditDefaultsOnly ,BlueprintReadWrite, meta= (AllowPrivateAccess = "true"),Category = "Combat")
+	TSubclassOf<class AProjectile> ProjectileClass; // Class of the projectile to spawn
+
+
+
 	
 
 public:	

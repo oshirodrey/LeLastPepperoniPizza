@@ -29,8 +29,7 @@ private:
 	class UCameraComponent* Camera;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Component")
 	class UStaticMeshComponent* PepperoniMesh;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Component")
-	class USceneComponent* ProjectileSpawnPoint;
+	
 
 	APlayerController* PlayerController;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Properties")

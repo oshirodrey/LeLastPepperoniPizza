@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BasePawn.h"
+
+#include "Projectile.h"
 #include "Components/CapsuleComponent.h"
 
 // Sets default values
@@ -12,6 +14,8 @@ ABasePawn::ABasePawn()
 	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
 	RootComponent = Capsule;
 	BaseMesh->SetupAttachment(Capsule);
+	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("ProjectileSpawnPoint"));
+	ProjectileSpawnPoint->SetupAttachment(BaseMesh);
 
 }
 
@@ -22,11 +26,23 @@ void ABasePawn::BeginPlay()
 	
 }
 
+void ABasePawn::Shoot()
+{
+	if (ProjectileClass)
+	{  	
+
+		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass,
+			ProjectileSpawnPoint->GetComponentLocation(),
+			ProjectileSpawnPoint->GetComponentRotation());
+		
+		Projectile->SetOwner(this);
+	}
+}
+
 // Called every frame
 void ABasePawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
-
 
