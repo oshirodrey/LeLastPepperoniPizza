@@ -2,6 +2,7 @@
 
 
 #include "Projectile.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -11,6 +12,11 @@ AProjectile::AProjectile()
 	PrimaryActorTick.bCanEverTick = false;
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
 	RootComponent = ProjectileMesh;
+
+	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
+	ProjectileMovement->InitialSpeed = Speed;
+	ProjectileMovement->MaxSpeed = Speed;
+
 	
 
 }
@@ -19,6 +25,7 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+	ProjectileMesh->OnComponentHit.AddDynamic(this,&AProjectile::OnHit)	;
 	
 }
 
