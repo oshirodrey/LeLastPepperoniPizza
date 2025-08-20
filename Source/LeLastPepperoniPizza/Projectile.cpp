@@ -4,6 +4,9 @@
 #include "Projectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "BasePawn.h" // include for ABasePawn
+#include "Particles/ParticleSystemComponent.h"
+
 
 // Sets default values
 AProjectile::AProjectile()
@@ -12,7 +15,6 @@ AProjectile::AProjectile()
 	PrimaryActorTick.bCanEverTick = false;
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
 	RootComponent = ProjectileMesh;
-
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
 	ProjectileMovement->InitialSpeed = Speed;
 	ProjectileMovement->MaxSpeed = Speed;
@@ -25,7 +27,27 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Retrieve speed from owner pawn once owner is valid
 	ProjectileMesh->OnComponentHit.AddDynamic(this,&AProjectile::OnHit)	;
+
+	if (const ABasePawn* OwnerPawn = Cast<ABasePawn>(GetOwner()))
+	{
+		Speed = OwnerPawn->GetBulletSpeed();
+		ProjectileMovement->InitialSpeed = Speed;
+		ProjectileMovement->MaxSpeed = Speed;
+
+		// Ensure the movement component uses the new speed immediately
+		ProjectileMovement->SetVelocityInLocalSpace(FVector::ForwardVector * Speed);
+		ProjectileMovement->Activate(true);
+	}
+
+	// In AProjectile::BeginPlay or constructor
+	ProjectileMesh->BodyInstance.bUseCCD = true;        // for UPrimitiveComponent* CollisionComp
+	// and make sure it blocks the enemy channel:
+	ProjectileMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Block);
+
+
 	
 }
 
@@ -50,8 +72,11 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	if (OtherActor && OtherActor != MyOwner && OtherActor != this)
 	{
 		
-		UGameplayStatics::ApplyDamage(OtherActor, 20.f, MyOwnerInstigator, this, DamageType); 
+		UGameplayStatics::ApplyDamage(OtherActor, 20.f, MyOwnerInstigator, this, DamageType);
+		UE_LOG(LogTemp, Warning, TEXT("Hit %s"), *(OtherActor->GetName() + ""));
 	}
+	if (HitParticle) UGameplayStatics::SpawnEmitterAtLocation(this, HitParticle, Hit.ImpactPoint, FRotator(0.f, 0.f, 0.f));
+
 
 	Destroy(); // Destroy the projectile after hitting
 

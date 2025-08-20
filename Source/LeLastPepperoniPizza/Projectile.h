@@ -30,6 +30,8 @@ private:
 	class UProjectileMovementComponent* ProjectileMovement;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Component")
 	float Speed = 2000.0f;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Combat")
+	class UParticleSystem* HitParticle;
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);

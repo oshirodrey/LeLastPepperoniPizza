@@ -13,5 +13,13 @@ UCLASS()
 class LELASTPEPPERONIPIZZA_API APineapple : public ABasePawn
 {
 	GENERATED_BODY()
+private:
+	class APizza* Pizza; //Reference to the main target
+	
+protected:
+	void AttackThePizza();
+	virtual void Tick(float DeltaTime) override;
+	virtual void BeginPlay() override;
+	
 	
 };

@@ -27,15 +27,20 @@ void ABasePawn::BeginPlay()
 }
 
 void ABasePawn::Shoot()
-{
+{ 
 	if (ProjectileClass)
 	{  	
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = GetInstigator();
 
-		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass,
+		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileClass,
 			ProjectileSpawnPoint->GetComponentLocation(),
-			ProjectileSpawnPoint->GetComponentRotation());
-		
-		Projectile->SetOwner(this);
+			ProjectileSpawnPoint->GetComponentRotation(),
+			SpawnParams);
+
+		// No need to call SetOwner manually anymore
 	}
 }
 

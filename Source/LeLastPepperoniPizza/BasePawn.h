@@ -26,6 +26,13 @@ protected:
 	class USceneComponent* ProjectileSpawnPoint;
 	
 	void Shoot();
+
+	UPROPERTY(EditDefaultsOnly ,BlueprintReadWrite, meta= (AllowPrivateAccess = "true"),Category = "Combat")
+	float BulletSpeed = 200.0f;
+	UPROPERTY(EditDefaultsOnly ,BlueprintReadWrite, meta= (AllowPrivateAccess = "true"),Category = "Combat")
+	float BulletDamage = 10.0f;
+
+	
 private:
 	UPROPERTY(EditDefaultsOnly ,BlueprintReadWrite, meta= (AllowPrivateAccess = "true"),Category = "Combat")
 	TSubclassOf<class AProjectile> ProjectileClass; // Class of the projectile to spawn
@@ -37,7 +44,9 @@ private:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
+
+	float GetBulletSpeed() const { return BulletSpeed; }
+	float GetBulletDamage() const { return BulletDamage; }
 
 
 
