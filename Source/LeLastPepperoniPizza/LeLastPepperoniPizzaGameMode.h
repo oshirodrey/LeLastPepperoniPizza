@@ -13,6 +13,8 @@ UCLASS()
 class LELASTPEPPERONIPIZZA_API ALeLastPepperoniPizzaGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+public:
+	void ActorDied(AActor* DeadActor);
 protected:
 	virtual void BeginPlay() override;
 
@@ -21,12 +23,12 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Properties")
 	float SpawnRadius = 400.f;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Properties")
-	float SpawnInterval = 3.f;
+	float SpawnInterval = 2.f;
 	FTimerHandle SpawnTimerHandle;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Properties")
 	TSubclassOf<class APineapple> PineappleClass;
 
 	class APineapple* Pineapple;
-	
+	class APizza* Pizza;
 };

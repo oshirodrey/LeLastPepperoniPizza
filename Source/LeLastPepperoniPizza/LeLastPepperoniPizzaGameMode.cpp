@@ -3,9 +3,30 @@
 
 #include "LeLastPepperoniPizzaGameMode.h"
 #include "Pineapple.h"
+#include "Pizza.h"
 #include "TimerManager.h"
 #include "Kismet/GameplayStatics.h"
 
+
+void ALeLastPepperoniPizzaGameMode::ActorDied(AActor* DeadActor)
+{
+	// Handle the actor's death logic here
+	if (DeadActor == Pizza)
+	{
+		// if (ToonTanksPlayerController)
+		// {
+		// 	ToonTanksPlayerController->SetPlayerEnableState(false); // Disable player input
+		// }
+		// GameOver(false); // Call the game over function
+		// Tank->HandleDestruction();
+       
+	}
+	else if (APineapple * DeadPineappleActor = Cast<APineapple>(DeadActor))
+	{
+		DeadPineappleActor->HandleDestruction(); 
+        
+	}
+}
 
 void ALeLastPepperoniPizzaGameMode::BeginPlay()
 {
@@ -17,6 +38,7 @@ void ALeLastPepperoniPizzaGameMode::BeginPlay()
 			&ALeLastPepperoniPizzaGameMode::RandomlySpawnEnemyInRadius,
 			SpawnInterval,
 			true);
+	Pizza = Cast<APizza>(UGameplayStatics::GetPlayerPawn(this, 0));
 	
 	
 }

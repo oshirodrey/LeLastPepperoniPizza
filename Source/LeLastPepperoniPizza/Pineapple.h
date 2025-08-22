@@ -20,6 +20,9 @@ protected:
 	void AttackThePizza();
 	virtual void Tick(float DeltaTime) override;
 	virtual void BeginPlay() override;
-	
+
+public:
+	void HandleDestruction();
+
 	
 };

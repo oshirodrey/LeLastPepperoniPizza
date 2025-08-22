@@ -15,6 +15,8 @@ public:
 	// Sets default values for this pawn's properties
 	ABasePawn();
 
+	float GetMaxHealth() const { return MaxHealth; }
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -32,12 +34,15 @@ protected:
 	UPROPERTY(EditDefaultsOnly ,BlueprintReadWrite, meta= (AllowPrivateAccess = "true"),Category = "Combat")
 	float BulletDamage = 10.0f;
 
+	void HandleDestruction();
 	
 private:
 	UPROPERTY(EditDefaultsOnly ,BlueprintReadWrite, meta= (AllowPrivateAccess = "true"),Category = "Combat")
 	TSubclassOf<class AProjectile> ProjectileClass; // Class of the projectile to spawn
 
-
+	UPROPERTY(EditDefaultsOnly ,BlueprintReadWrite, meta= (AllowPrivateAccess = "true"),Category = "Combat")
+	float MaxHealth = 30.f;
+	
 
 	
 

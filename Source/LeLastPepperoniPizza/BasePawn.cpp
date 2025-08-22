@@ -44,6 +44,10 @@ void ABasePawn::Shoot()
 	}
 }
 
+void ABasePawn::HandleDestruction()
+{
+}
+
 // Called every frame
 void ABasePawn::Tick(float DeltaTime)
 {

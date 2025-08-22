@@ -14,6 +14,12 @@ void APineapple::BeginPlay()
 
 }
 
+void APineapple::HandleDestruction()
+{
+	Super::HandleDestruction();
+	Destroy();
+}
+
 
 void APineapple::Tick(float DeltaTime)
 {
@@ -30,7 +36,7 @@ void APineapple::AttackThePizza()
 		this->BaseMesh->SetWorldLocation(FMath::VInterpTo(this->BaseMesh->GetComponentLocation(),
 			Pizza->GetActorLocation(),
 			GetWorld()->GetDeltaSeconds(),
-			0.1f), true);
+			0.8f), true);
 	}
 	
 }
