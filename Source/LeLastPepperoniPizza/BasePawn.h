@@ -42,8 +42,10 @@ private:
 
 	UPROPERTY(EditDefaultsOnly ,BlueprintReadWrite, meta= (AllowPrivateAccess = "true"),Category = "Combat")
 	float MaxHealth = 30.f;
-	
 
+	float CoolDown = 0.5f;
+	
+	bool IsCoolingDown = false;
 	
 
 public:	

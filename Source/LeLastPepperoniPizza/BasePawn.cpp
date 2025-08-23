@@ -33,13 +33,16 @@ void ABasePawn::Shoot()
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
 		SpawnParams.Instigator = GetInstigator();
-
-		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(
-			ProjectileClass,
-			ProjectileSpawnPoint->GetComponentLocation(),
-			ProjectileSpawnPoint->GetComponentRotation(),
-			SpawnParams);
-
+		if (IsCoolingDown == false)
+		{
+			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(
+				ProjectileClass,
+				ProjectileSpawnPoint->GetComponentLocation(),
+				ProjectileSpawnPoint->GetComponentRotation(),
+				SpawnParams);
+			IsCoolingDown = true;
+			CoolDown = 0.5f;
+		}
 		// No need to call SetOwner manually anymore
 	}
 }
@@ -52,6 +55,11 @@ void ABasePawn::HandleDestruction()
 void ABasePawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	CoolDown -= DeltaTime;
+	if (CoolDown<= 0)
+	{
+		IsCoolingDown = false;
+	}
 
 }
 
