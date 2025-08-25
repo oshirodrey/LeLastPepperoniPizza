@@ -21,6 +21,9 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
 public:
 	void HandleDestruction();
 

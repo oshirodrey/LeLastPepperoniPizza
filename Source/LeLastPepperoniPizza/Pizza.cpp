@@ -58,6 +58,11 @@ void APizza::RotatePizza(FVector HitLocation)
 		GetWorld()->GetDeltaSeconds(),
 		5.0f));
 }//RInterpTo ensures smooth rotation
+void APizza::HandleDestruction()
+{
+	Super::HandleDestruction();
+	
+}
 
 
 void APizza::BeginPlay()

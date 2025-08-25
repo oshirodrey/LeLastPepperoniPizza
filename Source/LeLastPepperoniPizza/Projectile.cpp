@@ -28,7 +28,7 @@ void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Retrieve speed from owner pawn once owner is valid
+// Bind the OnHit event to actor
 	ProjectileMesh->OnComponentHit.AddDynamic(this,&AProjectile::OnHit)	;
 
 	if (const ABasePawn* OwnerPawn = Cast<ABasePawn>(GetOwner()))

@@ -17,7 +17,11 @@ public:
 	void ActorDied(AActor* DeadActor);
 protected:
 	virtual void BeginPlay() override;
+	UFUNCTION(BlueprintImplementableEvent)
+	void GameOver();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 countEliminatedPineapples =0;
 private:
 	void RandomlySpawnEnemyInRadius();
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Properties")
@@ -31,4 +35,7 @@ private:
 
 	class APineapple* Pineapple;
 	class APizza* Pizza;
+
+	class APizzaPlayerController* PizzaPlayerController;
+
 };

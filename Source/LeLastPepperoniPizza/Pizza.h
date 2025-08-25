@@ -15,6 +15,8 @@ class LELASTPEPPERONIPIZZA_API APizza : public ABasePawn
 	GENERATED_BODY()
 public:
 	APizza();
+	void HandleDestruction();
+
 protected:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -34,5 +36,6 @@ private:
 	APlayerController* PlayerController;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Properties")
 	float TurnRate = 100.f;
+
 
 };
