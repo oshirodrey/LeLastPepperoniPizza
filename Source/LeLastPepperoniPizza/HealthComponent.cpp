@@ -42,8 +42,8 @@ void UHealthComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDa
 	AController* InstigatedBy, AActor* DamageCauser)
 {
 	if (Damage <= 0.f|| CurrentHealth <= 0.f) return;
-	CurrentHealth -= Damage;
-	if (CurrentHealth <=0 )
+	CurrentHealth = FMath::Clamp(CurrentHealth - Damage, 0.f, MaxHealth);
+	OnHealthChanged.Broadcast(CurrentHealth, MaxHealth);	if (CurrentHealth <=0 )
 	{
 		if (GameModeRef) GameModeRef->ActorDied(DamagedActor);
 	}
