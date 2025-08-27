@@ -22,6 +22,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 countEliminatedPineapples =0;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateEnemyEliminated();
 private:
 	void RandomlySpawnEnemyInRadius();
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Properties")

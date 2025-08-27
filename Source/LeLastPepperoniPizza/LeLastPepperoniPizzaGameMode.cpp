@@ -25,7 +25,7 @@ void ALeLastPepperoniPizzaGameMode::ActorDied(AActor* DeadActor)
 	else if (APineapple * DeadPineappleActor = Cast<APineapple>(DeadActor))
 	{
 		DeadPineappleActor->HandleDestruction();
-		countEliminatedPineapples++;
+		UpdateEnemyEliminated();
         
 	}
 }
@@ -45,6 +45,7 @@ void ALeLastPepperoniPizzaGameMode::BeginPlay()
 	
 	
 }
+
 
 void ALeLastPepperoniPizzaGameMode::RandomlySpawnEnemyInRadius()
 {
