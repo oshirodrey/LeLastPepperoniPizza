@@ -15,6 +15,8 @@ class LELASTPEPPERONIPIZZA_API APineapple : public ABasePawn
 	GENERATED_BODY()
 private:
 	class APizza* Pizza; //Reference to the main target
+
+	void LookAtPizza();
 	
 protected:
 	void AttackThePizza();
@@ -24,6 +26,7 @@ protected:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
+	
 public:
 	void HandleDestruction();
 

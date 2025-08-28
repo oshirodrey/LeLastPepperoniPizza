@@ -52,10 +52,17 @@ void APineapple::HandleDestruction()
 void APineapple::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	LookAtPizza();
 	AttackThePizza();
 }
 
 
+void APineapple::LookAtPizza()
+{
+	FVector ToTarget = Pizza->GetActorLocation() - this->GetActorLocation();
+	FRotator Rotation = FRotator(0, ToTarget.Rotation().Yaw, 0);
+	this->BaseMesh->SetWorldRotation(Rotation);//RInterpTo ensures smooth rotation
+}
 
 void APineapple::AttackThePizza()
 {
