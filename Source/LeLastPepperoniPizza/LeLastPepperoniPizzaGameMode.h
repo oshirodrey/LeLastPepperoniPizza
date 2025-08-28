@@ -27,11 +27,18 @@ protected:
 	void UpdateEnemyEliminated();
 private:
 	void RandomlySpawnEnemyInRadius();
+	void RescheduleSpawn();
+	void SpawnEnemyAndReschedule();
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Properties")
-	float SpawnRadius = 400.f;
+	float SpawnRadius = 600.f;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Properties")
-	float SpawnInterval = 2.f;
+	float SpawnIntervalMin = 1.f;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Properties")
+	float SpawnIntervalMax = 3.f;
 	FTimerHandle SpawnTimerHandle;
+
+	
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Properties")
 	TSubclassOf<class APineapple> PineappleClass;

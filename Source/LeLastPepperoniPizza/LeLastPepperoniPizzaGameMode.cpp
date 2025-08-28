@@ -34,12 +34,12 @@ void ALeLastPepperoniPizzaGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Spawn enemies every after set interval
-		GetWorld()->GetTimerManager().SetTimer(SpawnTimerHandle,
-			this,
-			&ALeLastPepperoniPizzaGameMode::RandomlySpawnEnemyInRadius,
-			SpawnInterval,
-			true);
+	// Spawn enemies every after random intervals
+	RescheduleSpawn();
+	// Later I can make this game harder by set another timer to double this spawn schedule
+	//...
+	
+	// Get the player's pizzapawn
 	Pizza = Cast<APizza>(UGameplayStatics::GetPlayerPawn(this, 0));
 	PizzaPlayerController = Cast<APizzaPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
 	
@@ -57,4 +57,20 @@ void ALeLastPepperoniPizzaGameMode::RandomlySpawnEnemyInRadius()
 	
 	
 	
+}
+
+void ALeLastPepperoniPizzaGameMode::RescheduleSpawn()
+{
+	float RandomInterval = FMath::FRandRange(SpawnIntervalMin , SpawnIntervalMax);
+	GetWorld()->GetTimerManager().SetTimer(SpawnTimerHandle,
+		this,
+		&ALeLastPepperoniPizzaGameMode::SpawnEnemyAndReschedule,
+		RandomInterval,
+		true);
+}
+
+void ALeLastPepperoniPizzaGameMode::SpawnEnemyAndReschedule()
+{
+	RandomlySpawnEnemyInRadius();
+	RescheduleSpawn();
 }
