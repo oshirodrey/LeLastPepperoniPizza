@@ -57,3 +57,9 @@ void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	// ...
 }
 
+void UHealthComponent::AddHealth(float Delta)
+{
+	CurrentHealth = FMath::Clamp(CurrentHealth + Delta, 0.f, MaxHealth);
+	OnHealthChanged.Broadcast(CurrentHealth, MaxHealth);	
+}
+

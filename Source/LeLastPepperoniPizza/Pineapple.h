@@ -26,6 +26,9 @@ protected:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class APowerupTarget> BuffClass;
+	void SpawnBuff();
 	
 public:
 	void HandleDestruction();

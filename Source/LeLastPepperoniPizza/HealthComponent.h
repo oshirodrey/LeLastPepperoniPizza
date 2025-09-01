@@ -42,5 +42,7 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnHealthChanged OnHealthChanged;
 
+	UFUNCTION(BlueprintCallable)
+	void AddHealth(float Delta);
 		
 };

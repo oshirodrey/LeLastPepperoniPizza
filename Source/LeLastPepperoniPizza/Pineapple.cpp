@@ -3,7 +3,9 @@
 
 #include "Pineapple.h"
 #include "Pizza.h"
+#include "PowerupTarget.h"
 #include "Kismet/GameplayStatics.h"
+#include "BuffType.h"
 
 
 
@@ -42,9 +44,33 @@ void APineapple::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UP
 	HandleDestruction(); // Destroy the projectile after hitting
 }
 
+void APineapple::SpawnBuff()
+{
+	// 30% chance to activate/spawn the buff
+	if (FMath::FRand() > 0.30f)
+	{
+		return;
+	}
+
+	if (BuffClass)
+	{  	
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = GetInstigator();
+		
+			APowerupTarget* Buff = GetWorld()->SpawnActor<APowerupTarget>(
+				BuffClass,
+				ProjectileSpawnPoint->GetComponentLocation(),
+				ProjectileSpawnPoint->GetComponentRotation(),
+				SpawnParams);
+		
+	}
+}
+
 void APineapple::HandleDestruction()
 {
 	Super::HandleDestruction();
+	SpawnBuff();
 	Destroy();
 }
 

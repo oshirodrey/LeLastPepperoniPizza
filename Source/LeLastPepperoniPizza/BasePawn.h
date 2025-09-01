@@ -35,17 +35,20 @@ protected:
 	float BulletDamage = 10.0f;
 
 	void HandleDestruction();
+	float CoolDown = 0.5f;
 	
-private:
+	bool IsCoolingDown = false;
+
 	UPROPERTY(EditDefaultsOnly ,BlueprintReadWrite, meta= (AllowPrivateAccess = "true"),Category = "Combat")
 	TSubclassOf<class AProjectile> ProjectileClass; // Class of the projectile to spawn
+	
+private:
+	
 
 	UPROPERTY(EditDefaultsOnly ,BlueprintReadWrite, meta= (AllowPrivateAccess = "true"),Category = "Combat")
 	float MaxHealth = 30.f;
 
-	float CoolDown = 0.5f;
 	
-	bool IsCoolingDown = false;
 	
 
 public:	

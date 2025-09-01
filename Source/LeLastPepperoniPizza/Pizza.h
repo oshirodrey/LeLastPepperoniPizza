@@ -16,6 +16,8 @@ class LELASTPEPPERONIPIZZA_API APizza : public ABasePawn
 public:
 	APizza();
 	void HandleDestruction();
+	UFUNCTION(BlueprintCallable)
+	void ApplyBuff(EBuffType BuffType, float Duration = 5.f, float Magnitude = 0.f);
 
 protected:
 	// Called to bind functionality to input
@@ -36,6 +38,23 @@ private:
 	APlayerController* PlayerController;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, BlueprintReadWrite, meta=(AllowPrivateAccess="true"), Category = "Properties")
 	float TurnRate = 100.f;
+protected:
+	
+	
+
+	FTimerHandle Timer_RapidFireExpire;
+	FTimerHandle Timer_RapidFireLoop;
 
 
+	bool bRapidFireActive = false;
+	
+	
+	// Your normal fire function (called by input)
+	UFUNCTION(BlueprintCallable) void ShootOnceInstantly();
+
+	// Called by pickups:
+	
+
+	void StartRapidFire(float Duration, float Interval);
+	void StopRapidFire();
 };
